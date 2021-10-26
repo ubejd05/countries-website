@@ -1,6 +1,8 @@
 const searchBar = document.getElementById('search-bar');
 const search = document.getElementById('search');
-// const 
+const ctrSection = document.getElementById('countries');
+const modeBtn = document.getElementById('mode-btn');
+const modeSpan = document.getElementById('mode');
 
 
 async function getAllCountries() {
@@ -13,3 +15,4 @@ async function getAllCountries() {
 getAllCountries();
 
 
+// Who wrote this shit? 

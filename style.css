@@ -1,3 +1,56 @@
-/* .country-card {
-  height: ;
-} */
+/* @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;500;600;800&display=swap'); */
+
+:root {
+  --dark-blue: hsl(209, 23%, 22%);
+  --bg-dark-blue: hsl(207, 26%, 17%);
+  --very-dark-blue: hsl(200, 15%, 8%);
+  --dark-gray: hsl(0, 0%, 52%);
+  ---very-light-gray: hsl(0, 0%, 98%);
+  --white: hsl(0, 0%, 100%);
+}
+  
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Nunito Sans', sans-serif;
+  background-color: hsl(207, 26%, 17%);
+}
+
+nav#navbar {
+  width: 100%;
+  height: 80px;
+  box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.1);
+  background-color: hsl(209, 23%, 22%);
+  color: var(---very-light-gray);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 100px;
+}
+
+nav#navbar button {
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  padding: 9px 15px;
+  border-radius: 3px;
+  background-color: transparent;
+  border: none;
+  color: var(---very-light-gray);
+}
+
+nav#navbar button:hover {
+  background-color: var(---very-light-gray);
+  color: var(--very-dark-blue);
+  cursor: pointer;
+  transition: background-color .2s ease-in;
+}
+
+nav#navbar button:active {
+  transform: scale(0.99);
+}
