@@ -54,3 +54,46 @@ nav#navbar button:hover {
 nav#navbar button:active {
   transform: scale(0.99);
 }
+
+main {
+  padding: 70px;
+}
+
+#search {
+  display: flex;
+  justify-content: space-between;
+}
+
+#search #input-wrap {
+  /* justify-self: flex-start; */
+  background-color: hsl(209, 23%, 22%);
+  width: 500px;
+  height: 60px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+  padding: 10px 30px;
+  color: var(---very-light-gray);
+  display: flex;
+  align-items: center;
+}
+
+#search #input-wrap input {
+  padding: 5px 10px;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  border-radius: 3px;
+  caret-color: var(---very-light-gray);
+  color: var(---very-light-gray);
+  font-size: 14px;
+  margin-left: 10px;
+}
+
+#search #input-wrap input::placeholder {
+  color: hsl(0, 0%, 75%)
+}
+
+#search #input-wrap i {
+  cursor: pointer;
+}
+
