@@ -117,13 +117,18 @@ main {
   align-items: center;
 }
 
-#regions-dropdown {
+#regions-dropdown {    
+  display: none;
   list-style: none;
   background-color: var(--dark-blue);
-  margin-top: 30px;
+  margin-top: 5px;
   border-radius: 5px;
   color: var(--gray);
   padding: 10px 0;
+}
+
+#regions-dropdown.show {
+  display: block;
 }
 
 #regions-dropdown li {
@@ -131,8 +136,10 @@ main {
   height: 30px;
   padding-left: 20px;
   cursor: pointer;
+  display: flex;
+  align-items: center;
 }
 
 #regions-dropdown li:hover {
-  background-color: hsl(208, 23%, 22%);
+  background-color: hsl(208, 23%, 25%);
 }
