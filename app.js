@@ -20,12 +20,12 @@ function showAllCountries(data) {
   data.forEach((country) => {
     ctrSection.innerHTML += `
     <div class="country-card">
-      <div class="flag"><img src="${country.flags.svg}"></div>
+      <div class="flag"><img src="${country.flag}"></div>
       <div class="info">
         <h4>${country.name}</h4>
         <li class="info-item"><strong>Population</strong>:  ${country.population}</li>
         <li class="info-item"><strong>Region</strong>:  ${country.region}</li>
-        <li class="info-item"><strong>Capital</strong>:  ${country.capital}</li>
+        <li class="info-item"><strong>Capital</strong>:  ${country.capital === 'undefined'? 'N/A': country.capital} </li>
       </div>
     </div>
   `;

@@ -80,6 +80,7 @@ main {
 #search {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 50px;
 }
 
 #search #input-wrap {
@@ -115,6 +116,11 @@ main {
   cursor: pointer;
 }
 
+#search #regions {
+  position: relative;
+  z-index: 10;
+}
+
 #search #regions-click{
   position: relative;
   background-color: var(--dark-blue);
@@ -131,8 +137,10 @@ main {
   align-items: center;
 }
 
+
 #regions-dropdown {    
   /* opacity: 0; */
+  width: 200px;
   display: none;
   list-style: none;
   background-color: var(--dark-blue);
@@ -140,7 +148,7 @@ main {
   border-radius: 5px;
   color: var(--gray);
   padding: 10px 0;
-  position: relative;
+  position: absolute;
   z-index: 10;
   /* transition: opacity .1s ease-in; */
 }
@@ -165,23 +173,24 @@ main {
 
 #countries {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   grid-gap: 15px;
+  justify-items: center;
   position: relative;
   z-index: 5;
 }
 
 #countries .country-card {
-  width: 200px;
-  height: 300px;
+  width: 250px;
+  /* height: 330px; */
   background-color: var(--dark-blue);
   border-radius: 5px;
   box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
-  /* margin: 30px; */
+  margin-bottom: 50px;
 }
 
 #countries .country-card .info {
-  padding: 20px 20px 30px 20px;
+  padding: 10px 20px 30px 20px;
   color: var(--very-light-gray);
 }
 
@@ -197,7 +206,7 @@ main {
 
 #countries .country-card img {
   width: 100%;
-  height: 130px;
+  min-height: 130px;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
 }
