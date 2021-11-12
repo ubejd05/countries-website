@@ -7,51 +7,39 @@ const regionsDropdown = document.getElementById('regions-dropdown');
 const regions = document.querySelectorAll('.region');
 const span = document.querySelector('.dropdown-placeholder');
 const dropdownIcon = document.querySelector('#regions i');
-// const countries = document.querySelectorAll('.country-card');
+
+let countries;
 
 async function getAllCountries() {
   let data = await fetch('https://restcountries.com/v2/all');
   let res = await data.json();
   
-  showAllCountries(res);
+  showCountries(res);
 }
 
-function showAllCountries(data) {
+function showCountries(data) {
+  ctrSection.innerHTML = '';
   data.forEach((country) => {
     ctrSection.innerHTML += `
-    <div class="country-card">
-      <div class="flag"><img src="${country.flag}"></div>
-      <div class="info">
-        <h4>${country.name}</h4>
-        <li class="info-item"><strong>Population</strong>:  ${country.population.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")}</li>
-        <li class="info-item"><strong>Region</strong>:  ${country.region}</li>
-        <li class="info-item"><strong>Capital</strong>:  ${country.capital === 'undefined' ? 'N/A': country.capital} </li>
+      <div class="country-card" data-name=${country.name}>
+        <div class="flag"><img src="${country.flag}"></div>
+        <div class="info">
+          <h4>${country.name}</h4>
+          <li class="info-item"><strong>Population</strong>:  ${country.population.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")}</li>
+          <li class="info-item"><strong>Region</strong>:  ${country.region}</li>
+          <li class="info-item"><strong>Capital</strong>:  ${country.capital === 'undefined' ? 'N/A': country.capital} </li>
+        </div>
       </div>
-    </div>
-  `;
+    `;
   });
+  countries = document.querySelectorAll('.country-card');
 }
 
 async function getCountry(country) {
   let data = await fetch(`https://restcountries.com/v2/name/${country}`);
   let res = await data.json();
   
-  showCountry(res);
-}
-
-// Show single country
-function showCountry(country) {
-  ctrSection.innerHTML = `
-  <div class="country-card">
-    <div class="flag"><img src="${country[0].flag}"></div>
-    <div class="info">
-      <h4>${country[0].name}</h4>
-      <li class="info-item"><strong>Population</strong>:  ${country[0].population.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")}</li>
-      <li class="info-item"><strong>Region</strong>:  ${country[0].region}</li>
-      <li class="info-item"><strong>Capital</strong>:  ${country[0].capital === 'undefined' ? 'N/A': country[0].capital} </li>
-    </div>
-  </div>
-`;
+  showCountries(res);
 }
 
 
@@ -77,4 +65,15 @@ regions.forEach((region) => {
 
 searchInput.addEventListener('change', (e) => {
   getCountry(e.target.value);
+})
+
+
+searchInput.addEventListener('input', (e) => {
+  countries.forEach((country) => {
+    if (country.dataset.name.toLowerCase().indexOf(e.target.value) != -1) {
+      country.style.display = "block"
+    } else {
+      country.style.display = "none"
+    }
+  })
 })
