@@ -21,7 +21,7 @@ function showCountries(data) {
   ctrSection.innerHTML = '';
   data.forEach((country) => {
     ctrSection.innerHTML += `
-      <div class="country-card" data-name=${country.name}>
+      <div class="country-card" data-name=${country.name} data-region=${country.region}>
         <div class="flag"><img src="${country.flag}"></div>
         <div class="info">
           <h4>${country.name}</h4>
@@ -77,3 +77,23 @@ searchInput.addEventListener('input', (e) => {
     }
   })
 })
+
+regions.forEach((region) => {
+  region.addEventListener('click', () => {
+    if (region.textContent == 'All') {
+      countries.forEach((country) => {
+        country.style.display = "block";
+      })
+    } else {
+      countries.forEach((country) => {
+        if (country.dataset.region.toLowerCase() == region.textContent.toLowerCase()) {
+          country.style.display = "block";
+        } else {
+          country.style.display = "none";
+        }
+      }) 
+    }
+    
+    // console.log('IT WORKS!!!');
+  });
+});
