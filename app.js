@@ -1,7 +1,7 @@
+const body = document.querySelector('body');
 const searchInput = document.getElementById('search-input');
 const ctrSection = document.getElementById('countries');
 const modeBtn = document.getElementById('mode-btn');
-const modeSpan = document.getElementById('mode');
 const regionsBtn = document.getElementById('regions-click');
 const regionsDropdown = document.getElementById('regions-dropdown');
 const regions = document.querySelectorAll('.region');
@@ -33,6 +33,13 @@ function showCountries(data) {
     `;
   });
   countries = document.querySelectorAll('.country-card');
+  countries.forEach((country) => {
+    country.addEventListener("click", () => {
+      let countryName = country.dataset.name;
+      getCountry(countryName);
+      // console.log(countryName);
+    });
+  });
 }
 
 async function getCountry(country) {
@@ -97,3 +104,13 @@ regions.forEach((region) => {
     // console.log('IT WORKS!!!');
   });
 });
+
+
+modeBtn.addEventListener('click', (e) => {
+  body.classList.toggle('light');
+  if (modeBtn.textContent == ' Light Mode') {
+    modeBtn.innerHTML = '<i class="fas fa-moon"></i> Dark Mode';
+  } else {
+    modeBtn.innerHTML = '<i class="fas fa-sun"></i> Light Mode';
+  }
+})

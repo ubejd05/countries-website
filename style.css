@@ -22,7 +22,12 @@
 
 body {
   font-family: 'Nunito Sans', sans-serif;
-  background-color: hsl(207, 26%, 17%);
+  background-color: var(--bg-dark-blue);
+  transition: all 0.1s ease;
+}
+
+body.light {
+  background-color: var(--very-light-gray);
 }
 
 nav#navbar {
@@ -35,6 +40,12 @@ nav#navbar {
   justify-content: space-between;
   align-items: center;
   padding: 0 100px;
+}
+
+body.light nav#navbar{
+  background-color: var(--white);
+  color: var(--very-dark-blue);
+  font-weight: bold;
 }
 
 nav#navbar h1 a {
@@ -70,11 +81,21 @@ nav#navbar button {
   color: var(--very-light-gray);
 }
 
+body.light nav#navbar button {
+  color: var(--very-dark-blue);
+}
+
+
 nav#navbar button:hover {
   background-color: var(--very-light-gray);
   color: var(--very-dark-blue);
   cursor: pointer;
   transition: background-color .2s ease-in;
+}
+
+body.light nav#navbar button:hover {
+  background-color: var(--bg-dark-blue);
+  color: var(--very-light-gray);
 }
 
 nav#navbar button:active {
@@ -108,6 +129,11 @@ main {
   align-items: center;
 }
 
+body.light #search #input-wrap {
+  background-color: var(--white);
+  color: var(--dark-gray);
+}
+
 #search #input-wrap input {
   width: 100%;
   padding: 5px 10px;
@@ -121,8 +147,17 @@ main {
   margin-left: 10px;
 }
 
+body.light #search #input-wrap input {
+  caret-color: var(--dark-gray);
+  color: hsl(0, 0%, 40%);
+}
+
 #search #input-wrap input::placeholder {
   color: hsl(0, 0%, 75%)
+}
+
+body.light #search #input-wrap input::placeholder {
+  color: var(--dark-gray)
 }
 
 #search #input-wrap i {
@@ -150,6 +185,11 @@ main {
   align-items: center;
 }
 
+body.light #search #regions-click {
+  background-color: var(--white);
+  color: var(--very-dark-blue);
+}
+
 
 #regions-dropdown {    
   /* opacity: 0; */
@@ -163,7 +203,13 @@ main {
   padding: 10px 0;
   position: absolute;
   z-index: 10;
+  box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
   /* transition: opacity .1s ease-in; */
+}
+
+body.light #regions-dropdown {
+  background-color: var(--white);
+  color: var(--very-dark-blue);
 }
 
 #regions-dropdown.show {
@@ -182,6 +228,10 @@ main {
 
 #regions-dropdown li:hover {
   background-color: hsl(208, 23%, 25%);
+}
+
+body.light #regions-dropdown li:hover {
+  background-color: var(--gray);
 }
 
 #countries {
@@ -203,11 +253,28 @@ main {
   /* position: relative; */
 }
 
+body.light #countries .country-card {
+  background-color: var(--white); 
+}
+
+#countries .country-card:hover {
+  cursor: pointer;
+  transform: scale(1.01);
+}
+
+#countries .country-card:active {
+  transform: scale(1);
+}
+
 #countries .country-card .info {
   padding: 10px 20px 30px 20px;
   color: var(--very-light-gray);
   /* position: absolute; */
   /* bottom: 10px; */
+}
+
+body.light #countries .country-card .info {
+  color: var(--very-dark-blue);
 }
 
 .country-card .info h4 {
