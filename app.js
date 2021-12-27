@@ -7,10 +7,15 @@ const regionsDropdown = document.getElementById('regions-dropdown');
 const regions = document.querySelectorAll('.region');
 const span = document.querySelector('.dropdown-placeholder');
 const dropdownIcon = document.querySelector('#regions i');
+const loader = document.querySelector('.loader');
 
 let countries;
 
 async function getAllCountries() {
+  setTimeout(() => {
+    loader.style.display = 'none';
+  }, 2000);
+
   let data = await fetch('https://restcountries.com/v2/all');
   let res = await data.json();
   
@@ -48,7 +53,6 @@ async function getCountry(country) {
   
   showCountries(res);
 }
-
 
 
 getAllCountries();
