@@ -1,4 +1,5 @@
 const body = document.querySelector('body');
+const searchSection = document.querySelector('#search');
 const searchInput = document.getElementById('search-input');
 const ctrSection = document.getElementById('countries');
 const modeBtn = document.getElementById('mode-btn');
@@ -10,6 +11,7 @@ const dropdownIcon = document.querySelector('#regions i');
 const loader = document.querySelector('.loader');
 
 let countries;
+let apiData;
 
 async function getAllCountries() {
   setTimeout(() => {
@@ -18,6 +20,7 @@ async function getAllCountries() {
 
   let data = await fetch('https://restcountries.com/v2/all');
   let res = await data.json();
+  apiData = await res;
   
   showCountries(res);
 }
@@ -51,9 +54,51 @@ async function getCountry(country) {
   let data = await fetch(`https://restcountries.com/v2/name/${country}`);
   let res = await data.json();
   
-  showCountries(res);
+  showSingleCountry(res[0]);
 }
 
+function showSingleCountry(country) {
+  searchSection.style.display = 'none';
+  // ctrSection.innerHTML = '';
+  ctrSection.innerHTML = `
+    <div id="country">  
+      <button id="back"><i class="fas fa-arrow-left"></i> Back</button>
+      <div class="flag"><img src="${country.flag}" alt="" style="width: 650px;"></div>
+      <div class="info">
+        <div><h1>${country.name}</h1></div>
+        <div class="data">
+          <ul>
+            <li><b>Native Name:</b> ${country.nativeName}</li>
+            <li><b>Population:</b> ${country.population.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")}</li>
+            <li><b>Region:</b> ${country.region}</li>
+            <li><b>Sub Region:</b> ${country.subregion}</li>
+            <li><b>Capital:</b> ${country.capital}</li>
+          </ul>
+          <ul>
+            <li><b>Top Level Domain:</b> ${country.topLevelDomain}</li>
+            <li><b>Currencies:</b> ${country.currencies}</li>
+            <li><b>Languages:</b> ${country.languages}</li>
+          </ul>
+        </div>
+        <div class="borders"><b>Border Countries:</b>   
+          ${
+            country.borders.forEach((item) => {`<span>item</span>`})
+          }
+        </div>
+      </div>
+    </div>`;
+
+  let backBtn = document.getElementById('back');
+  backBtn.addEventListener('click', () => {
+    // loader.style.display = 'block';
+    // ctrSection.innerHTML = '';
+    // setTimeout(() => {                   NOT WORKING!!!
+    //   loader.style.display = 'none';
+    // }, 2000);
+    searchSection.style.display = 'flex';
+    showCountries(apiData);
+  });
+}
 
 getAllCountries();
 
