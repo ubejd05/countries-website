@@ -9,6 +9,7 @@ const regions = document.querySelectorAll('.region');
 const span = document.querySelector('.dropdown-placeholder');
 const dropdownIcon = document.querySelector('#regions i');
 const loader = document.querySelector('.loader');
+const main = document.querySelector('main');
 
 let countries;
 let apiData;
@@ -58,8 +59,18 @@ async function getCountry(country) {
 }
 
 function showSingleCountry(country) {
+  let currencies = [];
+  let languages = [];
+  let borders = country.borders;
+
+  country.currencies.forEach((item) => {currencies.push(item.code + " ")});
+  country.languages.forEach((item) => {languages.push(item.name + " ")});
+
+  console.log(currencies)
+  console.log(languages)
+  console.log(borders)
+
   searchSection.style.display = 'none';
-  // ctrSection.innerHTML = '';
   ctrSection.innerHTML = `
     <div id="country">  
       <button id="back"><i class="fas fa-arrow-left"></i> Back</button>
@@ -76,28 +87,28 @@ function showSingleCountry(country) {
           </ul>
           <ul>
             <li><b>Top Level Domain:</b> ${country.topLevelDomain}</li>
-            <li><b>Currencies:</b> ${country.currencies}</li>
-            <li><b>Languages:</b> ${country.languages}</li>
+            <li><b>Currencies:</b> <span id="currencies"></span></li>
+            
+            <li><b>Languages:</b> <span id="languages"></span></li>
           </ul>
         </div>
-        <div class="borders"><b>Border Countries:</b>   
-          ${
-            country.borders.forEach((item) => {`<span>item</span>`})
-          }
-        </div>
+        <div class="borders"><b>Border Countries:</b> <span id="borderCountries"></span></div>
       </div>
     </div>`;
 
-  let backBtn = document.getElementById('back');
+  const backBtn = document.getElementById('back');
   backBtn.addEventListener('click', () => {
-    // loader.style.display = 'block';
-    // ctrSection.innerHTML = '';
-    // setTimeout(() => {                   NOT WORKING!!!
-    //   loader.style.display = 'none';
-    // }, 2000);
     searchSection.style.display = 'flex';
     showCountries(apiData);
   });
+
+  const currenciesSpan = document.querySelector('#currencies');
+  const bordersSpan = document.querySelector('#borderCountries');
+  const languagesSpan = document.querySelector('#languages');
+                                                                    // nese eshte e fundit ktheje vetem emrin nese jo shtoja nje presje
+  currencies.forEach((item, i) => {currenciesSpan.textContent += (i+1 == currencies.length ? item.trim() : item.trim() + ", ")})
+  languages.forEach((item, i) => {languagesSpan.textContent += (i+1 == languages.length ? item.trim() : item.trim() + ", ")})
+  borders.forEach((item) => {bordersSpan.innerHTML += `<span id="borderCountry">${item}</span>`})
 }
 
 getAllCountries();
