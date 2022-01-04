@@ -71,10 +71,11 @@ function showSingleCountry(country) {
   console.log(borders)
 
   searchSection.style.display = 'none';
+  ctrSection.style.display = 'block';
   ctrSection.innerHTML = `
     <div id="country">  
       <button id="back"><i class="fas fa-arrow-left"></i> Back</button>
-      <div class="flag"><img src="${country.flag}" alt="" style="width: 650px;"></div>
+      <div class="flag"><img src="${country.flag}" alt="flag"></div>
       <div class="info">
         <div><h1>${country.name}</h1></div>
         <div class="data">
@@ -96,7 +97,7 @@ function showSingleCountry(country) {
       </div>
     </div>`;
 
-  const backBtn = document.getElementById('back');
+  const backBtn = document.getElementById('back'); 
   backBtn.addEventListener('click', () => {
     searchSection.style.display = 'flex';
     showCountries(apiData);
@@ -108,7 +109,11 @@ function showSingleCountry(country) {
                                                                     // nese eshte e fundit ktheje vetem emrin nese jo shtoja nje presje
   currencies.forEach((item, i) => {currenciesSpan.textContent += (i+1 == currencies.length ? item.trim() : item.trim() + ", ")})
   languages.forEach((item, i) => {languagesSpan.textContent += (i+1 == languages.length ? item.trim() : item.trim() + ", ")})
-  borders.forEach((item) => {bordersSpan.innerHTML += `<span id="borderCountry">${item}</span>`})
+  if (!borders) {
+    bordersSpan.innerHTML = '<span id="borderCountry">No border countries found!</span>'; 
+  } else {
+    borders.forEach((item) => {bordersSpan.innerHTML += `<span id="borderCountry">${item}</span>`}) 
+  }
 }
 
 getAllCountries();
