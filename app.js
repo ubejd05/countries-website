@@ -28,6 +28,9 @@ async function getAllCountries() {
 
 function showCountries(data) {
   ctrSection.innerHTML = '';
+  ctrSection.style.display = 'grid';
+  // ctrSection.display = 'grid';
+
   data.forEach((country) => {
     ctrSection.innerHTML += `
       <div class="country-card" data-name=${country.name} data-region=${country.region}>
