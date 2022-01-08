@@ -6,7 +6,7 @@ const modeBtn = document.getElementById('mode-btn');
 const regionsBtn = document.getElementById('regions-click');
 const regionsDropdown = document.getElementById('regions-dropdown');
 const regions = document.querySelectorAll('.region');
-const span = document.querySelector('.dropdown-placeholder');
+const regionDisplay = document.querySelector('.dropdown-placeholder');
 const dropdownIcon = document.querySelector('#regions i');
 const loader = document.querySelector('.loader');
 const main = document.querySelector('main');
@@ -27,6 +27,7 @@ async function getAllCountries() {
   showCountries(res);
 }
 
+// Show all countries
 function showCountries(data) {
   ctrSection.innerHTML = '';
   ctrSection.style.display = 'grid';
@@ -53,6 +54,7 @@ function showCountries(data) {
   });
 }
 
+// Get country by name
 async function getCountry(country) {
   let data = await fetch(`https://restcountries.com/v2/name/${country}`);
   let res = await data.json();
@@ -60,6 +62,7 @@ async function getCountry(country) {
   showSingleCountry(res[0]);
 }
 
+// Show single country page
 function showSingleCountry(country) {
   let currencies = [];
   let languages = [];
@@ -67,10 +70,6 @@ function showSingleCountry(country) {
 
   country.currencies.forEach((item) => {currencies.push(item.code + " ")});
   country.languages.forEach((item) => {languages.push(item.name + " ")});
-
-  console.log(currencies)
-  console.log(languages)
-  console.log(borders)
 
   searchSection.style.display = 'none';
   ctrSection.style.display = 'block';
@@ -103,17 +102,12 @@ function showSingleCountry(country) {
   backBtn.addEventListener('click', () => {
     searchSection.style.display = 'flex';
     showCountries(apiData);
-    // ctrSection.innerHTML = '';
-    // ctrSection.style.display = 'grid';
-    // countries.forEach((country) => {
-    //   ctrSection.innerHTML += country;
-    // });
   });
 
   const currenciesSpan = document.querySelector('#currencies');
   const bordersSpan = document.querySelector('#borderCountries');
   const languagesSpan = document.querySelector('#languages');
-                                                                    // nese eshte e fundit ktheje vetem emrin nese jo shtoja nje presje
+
   currencies.forEach((item, i) => {currenciesSpan.textContent += (i+1 == currencies.length ? item.trim() : item.trim() + ", ")})
   languages.forEach((item, i) => {languagesSpan.textContent += (i+1 == languages.length ? item.trim() : item.trim() + ", ")})
   if (!borders) {
@@ -123,18 +117,17 @@ function showSingleCountry(country) {
   }
 }
 
+// Filter countries by region and name
 function filterCountries() {
   let inputVal = searchInput.value;
 
-  if (globalRegion.toLowerCase() === "All") {
+  if (globalRegion === "All") {
     countries.forEach((country) => {
       let countryName = country.children[1].children[0].textContent;
       if (countryName.toLowerCase().indexOf(inputVal) !== -1) {
-        // console.log(countryName);
         country.style.display = "block";
       } else {
         country.style.display = "none";
-        // console.log(countryName);
       }
     });
   } else {
@@ -142,18 +135,17 @@ function filterCountries() {
       let countryName = country.children[1].children[0].textContent;
       if (country.dataset.region.toLowerCase() === globalRegion.toLowerCase() && countryName.toLowerCase().indexOf(inputVal) != -1 ) {
         country.style.display = "block";
-        console.log(countryName);
       } else {
         country.style.display = "none";
-        // console.log(countryName);
       }
-      // console.log(country.dataset.region.toLowerCase() === globalRegion.toLowerCase());
     });
   }
 }
 
-getAllCountries();
+getAllCountries(); // Initial load
 
+
+// Event listeners
 regionsBtn.addEventListener('click', () => {
   regionsDropdown.classList.toggle('show');
   if (dropdownIcon.className == 'fas fa-angle-down') {
@@ -165,7 +157,7 @@ regionsBtn.addEventListener('click', () => {
 
 regions.forEach((region) => {
   region.addEventListener('click', () => {
-    span.textContent = region.textContent;
+    regionDisplay.textContent = region.textContent;
     regionsDropdown.classList.remove('show');
     dropdownIcon.className = 'fas fa-angle-down';
     globalRegion = region.textContent;
@@ -173,11 +165,11 @@ regions.forEach((region) => {
   })
 })
 
+// Not needed
 // searchInput.addEventListener('change', (e) => {
 //   getCountry(e.target.value);
 //   searchInput.value = '';
 // })
-
 
 searchInput.addEventListener('input', (e) => {
   filterCountries();
