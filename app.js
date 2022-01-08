@@ -13,6 +13,7 @@ const main = document.querySelector('main');
 
 let countries;
 let apiData;
+let globalRegion = 'All';
 
 async function getAllCountries() {
   setTimeout(() => {
@@ -29,7 +30,6 @@ async function getAllCountries() {
 function showCountries(data) {
   ctrSection.innerHTML = '';
   ctrSection.style.display = 'grid';
-  // ctrSection.display = 'grid';
 
   data.forEach((country) => {
     ctrSection.innerHTML += `
@@ -47,9 +47,8 @@ function showCountries(data) {
   countries = document.querySelectorAll('.country-card');
   countries.forEach((country) => {
     country.addEventListener("click", () => {
-      let countryName = country.dataset.name;
+      let countryName = country.children[1].children[0].textContent;
       getCountry(countryName);
-      // console.log(countryName);
     });
   });
 }
@@ -104,6 +103,11 @@ function showSingleCountry(country) {
   backBtn.addEventListener('click', () => {
     searchSection.style.display = 'flex';
     showCountries(apiData);
+    // ctrSection.innerHTML = '';
+    // ctrSection.style.display = 'grid';
+    // countries.forEach((country) => {
+    //   ctrSection.innerHTML += country;
+    // });
   });
 
   const currenciesSpan = document.querySelector('#currencies');
@@ -116,6 +120,35 @@ function showSingleCountry(country) {
     bordersSpan.innerHTML = '<span id="borderCountry">No border countries found!</span>'; 
   } else {
     borders.forEach((item) => {bordersSpan.innerHTML += `<span id="borderCountry">${item}</span>`}) 
+  }
+}
+
+function filterCountries() {
+  let inputVal = searchInput.value;
+
+  if (globalRegion.toLowerCase() === "All") {
+    countries.forEach((country) => {
+      let countryName = country.children[1].children[0].textContent;
+      if (countryName.toLowerCase().indexOf(inputVal) !== -1) {
+        // console.log(countryName);
+        country.style.display = "block";
+      } else {
+        country.style.display = "none";
+        // console.log(countryName);
+      }
+    });
+  } else {
+    countries.forEach((country) => {
+      let countryName = country.children[1].children[0].textContent;
+      if (country.dataset.region.toLowerCase() === globalRegion.toLowerCase() && countryName.toLowerCase().indexOf(inputVal) != -1 ) {
+        country.style.display = "block";
+        console.log(countryName);
+      } else {
+        country.style.display = "none";
+        // console.log(countryName);
+      }
+      // console.log(country.dataset.region.toLowerCase() === globalRegion.toLowerCase());
+    });
   }
 }
 
@@ -135,44 +168,20 @@ regions.forEach((region) => {
     span.textContent = region.textContent;
     regionsDropdown.classList.remove('show');
     dropdownIcon.className = 'fas fa-angle-down';
+    globalRegion = region.textContent;
+    filterCountries();
   })
 })
 
-searchInput.addEventListener('change', (e) => {
-  getCountry(e.target.value);
-})
+// searchInput.addEventListener('change', (e) => {
+//   getCountry(e.target.value);
+//   searchInput.value = '';
+// })
 
 
 searchInput.addEventListener('input', (e) => {
-  countries.forEach((country) => {
-    if (country.dataset.name.toLowerCase().indexOf(e.target.value) != -1) {
-      country.style.display = "block"
-    } else {
-      country.style.display = "none"
-    }
-  })
+  filterCountries();
 })
-
-regions.forEach((region) => {
-  region.addEventListener('click', () => {
-    if (region.textContent == 'All') {
-      countries.forEach((country) => {
-        country.style.display = "block";
-      })
-    } else {
-      countries.forEach((country) => {
-        if (country.dataset.region.toLowerCase() == region.textContent.toLowerCase()) {
-          country.style.display = "block";
-        } else {
-          country.style.display = "none";
-        }
-      }) 
-    }
-    
-    // console.log('IT WORKS!!!');
-  });
-});
-
 
 modeBtn.addEventListener('click', (e) => {
   body.classList.toggle('light');
