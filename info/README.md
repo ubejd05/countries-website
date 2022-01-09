@@ -29,9 +29,9 @@ Users should be able to:
 
 ### Links
 
-- Solution URL: [Add solution URL here](https://your-solution-url.com)
-- Live Site URL: [Add live site URL here](https://countrieswebsite-ubi.netlify.app/)
-- Code URL: [Add code URL here](https://github.com/ubejd05/countries-website)
+- Solution URL: (https://www.frontendmentor.io/solutions/rest-countries-api-with-color-theme-switcher-8Z9FicDDY)
+- Live Site URL: (https://countrieswebsite-ubi.netlify.app/)
+- Code URL: (https://github.com/ubejd05/countries-website)
 
 ### Built with
 
