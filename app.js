@@ -62,6 +62,7 @@ async function getCountry(country) {
   showSingleCountry(res[0]);
 }
 
+// Get country by code
 async function getCountryByCode(code) {
   let data = await fetch(`https://restcountries.com/v2/alpha/${code}`);
   let res = await data.json();

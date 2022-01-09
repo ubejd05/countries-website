@@ -37,5 +37,3 @@ For the icons, you can use a font icon library. Don't worry if the icons that yo
 Some suggestions can be found below:
 
 - [Font Awesome](https://fontawesome.com)
-- [IcoMoon](https://icomoon.io)
-- [Ionicons](https://ionicons.com)

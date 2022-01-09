@@ -475,7 +475,6 @@ body.light #country .info .borders span#borderCountry{
 @media(max-width: 700px) {
   #country .flag img{
     width: 90%;
-    margin-right: 09;
   }
 
   #country .info .data{
