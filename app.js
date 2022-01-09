@@ -62,6 +62,12 @@ async function getCountry(country) {
   showSingleCountry(res[0]);
 }
 
+async function getCountryByCode(code) {
+  let data = await fetch(`https://restcountries.com/v2/alpha/${code}`);
+  let res = await data.json();
+  showSingleCountry(res);
+}
+
 // Show single country page
 function showSingleCountry(country) {
   let currencies = [];
@@ -115,6 +121,13 @@ function showSingleCountry(country) {
   } else {
     borders.forEach((item) => {bordersSpan.innerHTML += `<span id="borderCountry">${item}</span>`}) 
   }
+  
+  document.querySelectorAll('#borderCountry').forEach((borderCountry) => {
+    borderCountry.addEventListener('click', (e) => {
+      console.log(e.target.textContent);
+      getCountryByCode(e.target.textContent)
+    })
+  })
 }
 
 // Filter countries by region and name
