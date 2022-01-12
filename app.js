@@ -34,7 +34,7 @@ function showCountries(data) {
 
   data.forEach((country) => {
     ctrSection.innerHTML += `
-      <div class="country-card" data-name=${country.name} data-region=${country.region}>
+      <div class="country-card" data-region=${country.region}>
         <div class="flag"><img src="${country.flag}" alt="flag"></div>
         <div class="info">
           <h4>${country.name}</h4>
