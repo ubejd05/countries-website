@@ -100,13 +100,9 @@ nav#navbar button:active {
 }
 
 main {
-  padding: 70px;
+  padding: 50px 70px;
   width: 100vw;
   max-height: 100vh;
-  /* display: flex; */
-  /* flex-direction: column; */
-  /* justify-content: space-evenly; */
-  /* align-items: center;  */
 }
 
 #search {
@@ -116,7 +112,6 @@ main {
 }
 
 #search #input-wrap {
-  /* justify-self: flex-start; */
   background-color: var(--dark-blue);
   width: 500px;
   height: 60px;
@@ -175,7 +170,6 @@ body.light #search #input-wrap input::placeholder {
   height: 60px;
   border-radius: 5px;
   box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
-  /* padding: 10px 20px; */
   color: var(--gray);
   cursor: pointer;
   line-height: 1.1;
@@ -191,7 +185,6 @@ body.light #search #regions-click {
 
 
 #regions-dropdown {    
-  /* opacity: 0; */
   width: 200px;
   display: none;
   list-style: none;
@@ -203,7 +196,6 @@ body.light #search #regions-click {
   position: absolute;
   z-index: 10;
   box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
-  /* transition: opacity .1s ease-in; */
 }
 
 body.light #regions-dropdown {
@@ -212,7 +204,6 @@ body.light #regions-dropdown {
 }
 
 #regions-dropdown.show {
-  /* opacity: 1; */
   display: block;
 }
 
@@ -244,12 +235,10 @@ body.light #regions-dropdown li:hover {
 
 #countries .country-card {
   width: 250px;
-  /* height: 330px; */
   background-color: var(--dark-blue);
   border-radius: 5px;
   box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
   margin-bottom: 50px;
-  /* position: relative; */
 }
 
 body.light #countries .country-card {
@@ -268,8 +257,6 @@ body.light #countries .country-card {
 #countries .country-card .info {
   padding: 10px 20px 30px 20px;
   color: var(--very-light-gray);
-  /* position: absolute; */
-  /* bottom: 10px; */
 }
 
 body.light #countries .country-card .info {
@@ -377,7 +364,6 @@ body.light #country .flag img {
 #country .info .data ul {
   list-style: none;
   min-width: 250px;
-  /* margin: 20px; */
   line-height: 30px;
 }
 
@@ -510,7 +496,6 @@ body.light #country .info .borders span#borderCountry{
   }
 
   #country .info {
-    /* align-items: center; */
     padding-left: 50px;
     min-width: fit-content;
     max-width: 100% !important;
@@ -518,7 +503,6 @@ body.light #country .info .borders span#borderCountry{
 
   #country .info .data{
     width: 80%;
-    /* align-items: center !important; */
   }
 
   #country .info .data ul:first-child {
