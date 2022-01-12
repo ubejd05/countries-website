@@ -35,12 +35,14 @@ function showCountries(data) {
   data.forEach((country) => {
     ctrSection.innerHTML += `
       <div class="country-card" data-name=${country.name} data-region=${country.region}>
-        <div class="flag"><img src="${country.flag}"></div>
+        <div class="flag"><img src="${country.flag}" alt="flag"></div>
         <div class="info">
           <h4>${country.name}</h4>
-          <li class="info-item"><strong>Population</strong>:  ${country.population.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")}</li>
-          <li class="info-item"><strong>Region</strong>:  ${country.region}</li>
-          <li class="info-item"><strong>Capital</strong>:  ${country.capital === 'undefined' ? 'N/A': country.capital} </li>
+          <ul>
+            <li class="info-item"><strong>Population</strong>:  ${country.population.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")}</li>
+            <li class="info-item"><strong>Region</strong>:  ${country.region}</li>
+            <li class="info-item"><strong>Capital</strong>:  ${country.capital === 'undefined' ? 'N/A': country.capital} </li>
+          </ul>
         </div>
       </div>
     `;
@@ -125,7 +127,6 @@ function showSingleCountry(country) {
   
   document.querySelectorAll('#borderCountry').forEach((borderCountry) => {
     borderCountry.addEventListener('click', (e) => {
-      console.log(e.target.textContent);
       getCountryByCode(e.target.textContent)
     })
   })
