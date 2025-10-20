@@ -16,82 +16,96 @@ let apiData;
 let globalRegion = 'All';
 
 async function getAllCountries() {
-  setTimeout(() => {
-    loader.style.display = 'none';
-  }, 2000);
+	setTimeout(() => {
+		loader.style.display = 'none';
+	}, 2000);
 
-  let data = await fetch('https://restcountries.com/v2/all');
-  let res = await data.json();
-  apiData = await res;
-  
-  showCountries(res);
+	let data = await fetch(
+		'https://restcountries.com/v3.1/all?fields=name,capital,population,flags,region'
+	);
+	let res = await data.json();
+	apiData = await res;
+
+	showCountries(res);
 }
 
 // Show all countries
 function showCountries(data) {
-  ctrSection.innerHTML = '';
-  ctrSection.style.display = 'grid';
+	ctrSection.innerHTML = '';
+	ctrSection.style.display = 'grid';
 
-  data.forEach((country) => {
-    ctrSection.innerHTML += `
+	data.forEach((country) => {
+		ctrSection.innerHTML += `
       <div class="country-card" data-region=${country.region}>
-        <div class="flag"><img src="${country.flag}" alt="flag"></div>
+        <div class="flag"><img src="${country.flags.png}" alt="flag"></div>
         <div class="info">
-          <h4>${country.name}</h4>
+          <h4>${country.name.common}</h4>
           <ul>
-            <li class="info-item"><strong>Population</strong>:  ${country.population.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")}</li>
-            <li class="info-item"><strong>Region</strong>:  ${country.region}</li>
-            <li class="info-item"><strong>Capital</strong>:  ${country.capital === 'undefined' ? 'N/A': country.capital} </li>
+            <li class="info-item"><strong>Population</strong>:  ${country.population
+							.toString()
+							.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1,')}</li>
+            <li class="info-item"><strong>Region</strong>:  ${
+							country.region
+						}</li>
+            <li class="info-item"><strong>Capital</strong>:  ${
+							country.capital === 'undefined' ? 'N/A' : country.capital
+						} </li>
           </ul>
         </div>
       </div>
     `;
-  });
-  countries = document.querySelectorAll('.country-card');
-  countries.forEach((country) => {
-    country.addEventListener("click", () => {
-      let countryName = country.children[1].children[0].textContent;
-      getCountry(countryName);
-    });
-  });
+	});
+	countries = document.querySelectorAll('.country-card');
+	countries.forEach((country) => {
+		country.addEventListener('click', () => {
+			let countryName = country.children[1].children[0].textContent;
+			getCountry(countryName);
+		});
+	});
 }
 
 // Get country by name
 async function getCountry(country) {
-  let data = await fetch(`https://restcountries.com/v2/name/${country}`);
-  let res = await data.json();
-  
-  showSingleCountry(res[0]);
+	let data = await fetch(`https://restcountries.com/v2/name/${country}`);
+	let res = await data.json();
+
+	showSingleCountry(res[0]);
 }
 
 // Get country by code
 async function getCountryByCode(code) {
-  let data = await fetch(`https://restcountries.com/v2/alpha/${code}`);
-  let res = await data.json();
-  showSingleCountry(res);
+	let data = await fetch(`https://restcountries.com/v2/alpha/${code}`);
+	let res = await data.json();
+	showSingleCountry(res);
 }
 
 // Show single country page
 function showSingleCountry(country) {
-  let currencies = [];
-  let languages = [];
-  let borders = country.borders;
+	let currencies = [];
+	let languages = [];
+	let borders = country.borders;
 
-  country.currencies.forEach((item) => {currencies.push(item.code + " ")});
-  country.languages.forEach((item) => {languages.push(item.name + " ")});
+	country.currencies.forEach((item) => {
+		currencies.push(item.code + ' ');
+	});
+	country.languages.forEach((item) => {
+		languages.push(item.name + ' ');
+	});
 
-  searchSection.style.display = 'none';
-  ctrSection.style.display = 'block';
-  ctrSection.innerHTML = `
+	searchSection.style.display = 'none';
+	ctrSection.style.display = 'block';
+	ctrSection.innerHTML = `
     <div id="country">  
       <button id="back"><i class="fas fa-arrow-left"></i> Back</button>
-      <div class="flag"><img src="${country.flag}" alt="flag"></div>
+      <div class="flag"><img src="${country.flags.png}" alt="flag"></div>
       <div class="info">
-        <div><h1>${country.name}</h1></div>
+        <div><h1>${country.name.common}</h1></div>
         <div class="data">
           <ul>
             <li><b>Native Name:</b> ${country.nativeName}</li>
-            <li><b>Population:</b> ${country.population.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")}</li>
+            <li><b>Population:</b> ${country.population
+							.toString()
+							.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1,')}</li>
             <li><b>Region:</b> ${country.region}</li>
             <li><b>Sub Region:</b> ${country.subregion}</li>
             <li><b>Capital:</b> ${country.capital}</li>
@@ -107,78 +121,89 @@ function showSingleCountry(country) {
       </div>
     </div>`;
 
-  const backBtn = document.getElementById('back'); 
-  backBtn.addEventListener('click', () => {
-    searchSection.style.display = 'flex';
-    showCountries(apiData);
-  });
+	const backBtn = document.getElementById('back');
+	backBtn.addEventListener('click', () => {
+		searchSection.style.display = 'flex';
+		showCountries(apiData);
+	});
 
-  const currenciesSpan = document.querySelector('#currencies');
-  const bordersSpan = document.querySelector('#borderCountries');
-  const languagesSpan = document.querySelector('#languages');
+	const currenciesSpan = document.querySelector('#currencies');
+	const bordersSpan = document.querySelector('#borderCountries');
+	const languagesSpan = document.querySelector('#languages');
 
-  currencies.forEach((item, i) => {currenciesSpan.textContent += (i+1 == currencies.length ? item.trim() : item.trim() + ", ")})
-  languages.forEach((item, i) => {languagesSpan.textContent += (i+1 == languages.length ? item.trim() : item.trim() + ", ")})
-  if (!borders) {
-    bordersSpan.innerHTML = '<span id="borderCountry">No border countries found!</span>'; 
-  } else {
-    borders.forEach((item) => {bordersSpan.innerHTML += `<span id="borderCountry">${item}</span>`}) 
-  }
-  
-  document.querySelectorAll('#borderCountry').forEach((borderCountry) => {
-    borderCountry.addEventListener('click', (e) => {
-      getCountryByCode(e.target.textContent)
-    })
-  })
+	currencies.forEach((item, i) => {
+		currenciesSpan.textContent +=
+			i + 1 == currencies.length ? item.trim() : item.trim() + ', ';
+	});
+	languages.forEach((item, i) => {
+		languagesSpan.textContent +=
+			i + 1 == languages.length ? item.trim() : item.trim() + ', ';
+	});
+	if (!borders) {
+		bordersSpan.innerHTML =
+			'<span id="borderCountry">No border countries found!</span>';
+	} else {
+		borders.forEach((item) => {
+			bordersSpan.innerHTML += `<span id="borderCountry">${item}</span>`;
+		});
+	}
+
+	document.querySelectorAll('#borderCountry').forEach((borderCountry) => {
+		borderCountry.addEventListener('click', (e) => {
+			getCountryByCode(e.target.textContent);
+		});
+	});
 }
 
 // Filter countries by region and name
 function filterCountries() {
-  let inputVal = searchInput.value;
+	let inputVal = searchInput.value;
 
-  if (globalRegion === "All") {
-    countries.forEach((country) => {
-      let countryName = country.children[1].children[0].textContent;
-      if (countryName.toLowerCase().indexOf(inputVal) !== -1) {
-        country.style.display = "block";
-      } else {
-        country.style.display = "none";
-      }
-    });
-  } else {
-    countries.forEach((country) => {
-      let countryName = country.children[1].children[0].textContent;
-      if (country.dataset.region.toLowerCase() === globalRegion.toLowerCase() && countryName.toLowerCase().indexOf(inputVal) != -1 ) {
-        country.style.display = "block";
-      } else {
-        country.style.display = "none";
-      }
-    });
-  }
+	if (globalRegion === 'All') {
+		countries.forEach((country) => {
+			let countryName = country.children[1].children[0].textContent;
+			if (countryName.toLowerCase().indexOf(inputVal) !== -1) {
+				country.style.display = 'block';
+			} else {
+				country.style.display = 'none';
+			}
+		});
+	} else {
+		countries.forEach((country) => {
+			let countryName = country.children[1].children[0].textContent;
+			if (
+				country.dataset.region.toLowerCase() === globalRegion.toLowerCase() &&
+				countryName.toLowerCase().indexOf(inputVal) != -1
+			) {
+				country.style.display = 'block';
+			} else {
+				country.style.display = 'none';
+			}
+		});
+	}
 }
 
 getAllCountries(); // Initial load
 
-
 // Event listeners
 regionsBtn.addEventListener('click', () => {
-  regionsDropdown.classList.toggle('show');
-  if (dropdownIcon.className == 'fas fa-angle-down') {
-    dropdownIcon.className = 'fas fa-angle-up';
-  } else {
-    dropdownIcon.className = 'fas fa-angle-down';
-  }
-})
+	regionsDropdown.classList.toggle('show');
+	if (dropdownIcon.className == 'fas fa-angle-down') {
+		dropdownIcon.className = 'fas fa-angle-up';
+	} else {
+		dropdownIcon.className = 'fas fa-angle-down';
+	}
+});
 
 regions.forEach((region) => {
-  region.addEventListener('click', () => {
-    regionDisplay.textContent = region.textContent;
-    regionsDropdown.classList.remove('show');
-    dropdownIcon.className = 'fas fa-angle-down';
-    globalRegion = region.textContent;
-    filterCountries();
-  })
-})
+	region.addEventListener('click', () => {
+		regionDisplay.textContent = region.textContent;
+		regionsDropdown.classList.remove('show');
+		dropdownIcon.className = 'fas fa-angle-down';
+		globalRegion = region.textContent;
+		filterCountries();
+	});
+});
 
 // Not needed
 // searchInput.addEventListener('change', (e) => {
@@ -187,14 +212,14 @@ regions.forEach((region) => {
 // })
 
 searchInput.addEventListener('input', (e) => {
-  filterCountries();
-})
+	filterCountries();
+});
 
 modeBtn.addEventListener('click', (e) => {
-  body.classList.toggle('light');
-  if (modeBtn.textContent == ' Light Mode') {
-    modeBtn.innerHTML = '<i class="fas fa-moon"></i> Dark Mode';
-  } else {
-    modeBtn.innerHTML = '<i class="fas fa-sun"></i> Light Mode';
-  }
-})
+	body.classList.toggle('light');
+	if (modeBtn.textContent == ' Light Mode') {
+		modeBtn.innerHTML = '<i class="fas fa-moon"></i> Dark Mode';
+	} else {
+		modeBtn.innerHTML = '<i class="fas fa-sun"></i> Light Mode';
+	}
+});
