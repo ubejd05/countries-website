@@ -21,7 +21,7 @@ async function getAllCountries() {
 	}, 2000);
 
 	let data = await fetch(
-		'https://restcountries.com/v3.1/all?fields=name,capital,population,flags,region'
+		'https://restcountries.com/v2/all?fields=name,capital,population,flags,region'
 	);
 	let res = await data.json();
 	apiData = await res;
@@ -39,7 +39,7 @@ function showCountries(data) {
       <div class="country-card" data-region=${country.region}>
         <div class="flag"><img src="${country.flags.png}" alt="flag"></div>
         <div class="info">
-          <h4>${country.name.common}</h4>
+          <h4>${country.name}</h4>
           <ul>
             <li class="info-item"><strong>Population</strong>:  ${country.population
 							.toString()
@@ -99,7 +99,7 @@ function showSingleCountry(country) {
       <button id="back"><i class="fas fa-arrow-left"></i> Back</button>
       <div class="flag"><img src="${country.flags.png}" alt="flag"></div>
       <div class="info">
-        <div><h1>${country.name.common}</h1></div>
+        <div><h1>${country.name}</h1></div>
         <div class="data">
           <ul>
             <li><b>Native Name:</b> ${country.nativeName}</li>
